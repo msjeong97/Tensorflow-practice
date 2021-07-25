@@ -1,71 +1,24 @@
-# Tensorflow-practice
+## 1. MLP
+### A. Perceptron
+- 다수의 input을 입력 받아 하나의 output을 출력한다.
+- 아래 그림에서 원을 뉴런 또는 노드라고 말한다. 
+<figure>
+    <img src="https://github.com/msjeong97/tensorflow-practice/blob/main/perceptron.jpeg" alt="perceptron">
+</figure>
+- input이 뉴런에 전해질 때 weight가 곱해진다. 
+- input과 weight의 곱과 bias의 합이 activation function을 거쳐 출력 된다. 
 
-## 0. Install Python
-```bash
-$ pyenv install 3.8.5
-$ pyenv virtualenv 3.8.5 <virtual_env_name>
-```
+### B. Multi Layer Perceptron
+- neural netowrk model 중 하나.
+- perceptron으로 AND, OR, NAND 게이트는 구현이 가능하다. 하지만 XOR은 단일 perceptron으로 구현할 수 없다.
+- 단일 perceptron은 선형적으로 공간을 나누기 때문이다. 
+- 비선형식으로 공간을 나누기 위해 perceptron 여러개를 결합 한다.
+<figure>
+    <img src="https://github.com/msjeong97/tensorflow-practice/blob/main/mlp.jpeg" alt="multi layer perceptron">
+</figure>
+- 다층으로 perceptron을 쌓아 로직을 구성하면 복잡한 로직도 처리할 수 있다.
+- input에 대한 output을 가장 잘 예측하는 weights를 찾는 것 이 목표.
+- 학습셋으로 output의 error를 구하고, error가 줄어들도록 weights를 update하는 backpropagation을 반복.
 
-## 1. Install Tensorflow
-[Tensorflow Install](https://www.tensorflow.org/install/pip?hl=ko#macos)
-```bash
-
-$ pip3 install --upgrade pip
-$ pip3 install --upgrade tensorflow
-
-# check version
-$ python -c "import tensorflow as tf; print(tf.version.GIT_VERSION, tf.version.VERSION)"
-v2.4.0-49-g85c8b2a817f 2.4.1`
-```
-
-## 2. Install Jupyter Notebook
-```bash
-$ pip3 install jupyter 
-$ jupyter notebook
-```
-
-## 3. Warning Message
-```bash
-$ python matrix_practice/matrix_gen.py
-2021-03-26 21:37:54.607573: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
-2021-03-26 21:37:54.607858: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-``` 
-- 일단 오류는 아니다. 경고 메세지다. 최신 CPU들은 AVX2, SSE4 등과 같은 instruction들을 지원한다. 이러한 명령어들은 스칼라 연산 및 벡터 연산의 성능을 높인다. 이러한 성능 개선은 학습 속도의 상승으로 이어진다.
-- 공식 배포되는 텐서플로우 라이브러리는 위에서 설명한 특정 CPU, GPU특화 instruction이 사용되지않도록 되어 있다. 
-- Sol1
-	- ~~경고니까 무시한다. 아래와 같이 코드를 작성하면 무시 가능하다.~~
-	```python
-	import os
-	os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
-	import tensorflow as tf
-	```
-- Sol2
-	- 소스코드 클론후 직접 빌드하여 바이너리를 생성
-	[Tensorflow Install from Source](https://www.tensorflow.org/install/source?hl=ko#macos_1)
-	```bash
-	$ pip3 install -U pip numpy wheel
-	$ pip3 install -U keras_preprocessing --no-deps
-	$ git clone https://github.com/tensorflow/tensorflow.git
-	
-	#install bazel 3.7.2
-	$ export BAZEL_VERSION=3.7.2
-	$ curl -fLO "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-darwin-x86_64.sh"
-	$ chmod +x "bazel-${BAZEL_VERSION}-installer-darwin-x86_64.sh"
-	$ ./bazel-${BAZEL_VERSION}-installer-darwin-x86_64.sh --user
-	$ bazel --version
-
-	# 사용 가능한 instruction 확인
-	$ sysctl -a | grep "machdep.cpu.*features:"
-
-	$ cd tensorflow
-	$ ./configure
-	
-	# AVX2, FMA instruction을 지원하도록 빌드
-	$ bazel build -c opt --copt=-mavx2 --copt=-mfma //tensorflow/tools/pip_package:build_pip_package
-
-	$ pip install /tmp/tensorflow_pkg/tensorflow-<version>-<tags>.whl
-
-	```	 
-
-## 4. 
+## 2. Tensorflow
+- neural network model을 코드로 구성하기 위해 사용할 framework
