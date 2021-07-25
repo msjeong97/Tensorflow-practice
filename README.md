@@ -3,7 +3,7 @@
 - 다수의 input을 입력 받아 하나의 output을 출력한다.
 - 아래 그림에서 원을 뉴런 또는 노드라고 말한다. 
 <figure>
-    <img src="perceptron.jpeg" alt="perceptron">
+    <img src="https://github.com/msjeong97/tensorflow-practice/blob/main/perceptron.jpeg" alt="perceptron">
 </figure>
 - input이 뉴런에 전해질 때 weight가 곱해진다. 
 - input과 weight의 곱과 bias의 합이 activation function을 거쳐 출력 된다. 
@@ -14,7 +14,7 @@
 - 단일 perceptron은 선형적으로 공간을 나누기 때문이다. 
 - 비선형식으로 공간을 나누기 위해 perceptron 여러개를 결합 한다.
 <figure>
-    <img src="mlp.jpeg" alt="multi layer perceptron">
+    <img src="https://github.com/msjeong97/tensorflow-practice/blob/main/mlp.jpeg" alt="multi layer perceptron">
 </figure>
 - 다층으로 perceptron을 쌓아 로직을 구성하면 복잡한 로직도 처리할 수 있다.
 - input에 대한 output을 가장 잘 예측하는 weights를 찾는 것 이 목표.
